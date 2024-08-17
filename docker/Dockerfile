@@ -1,5 +1,5 @@
 # STEP1: CLONE THE CODE
-FROM alpine:latest as builder_prepare
+FROM alpine:latest AS builder_prepare
 WORKDIR /home/
 RUN apk add git && \
     git clone --depth 1 https://github.com/bjornclauw/filestash
@@ -27,7 +27,7 @@ RUN apt-get update > /dev/null && \
 
 # STEP4: Create the prod image from the build
 FROM debian:stable-slim
-MAINTAINER mickael@kerjean.me
+LABEL maintained by mickael@kerjean.me
 COPY --from=builder_backend /home/dist/ /app/
 WORKDIR "/app"
 RUN apt-get update > /dev/null && \
